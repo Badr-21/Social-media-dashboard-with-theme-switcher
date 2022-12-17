@@ -9,7 +9,7 @@
 
     --Facebook: hsl(208, 92%, 53%);
     --Twitter: hsl(203, 89%, 53%);
-    --Instagram: hsl(37, 97%, 70%) to hsl(329, 70%, 58%);
+    --Instagram: linear-gradient(to right, hsl(37, 97%, 70%), hsl(329, 70%, 58%));
     --YouTube: hsl(348, 97%, 39%);
     /*#### Dark Theme*/
     --Toggle-Dark-Mode: linear-gradient(to right, hsl(210, 78%, 56%), hsl(146, 68%, 55%));
@@ -17,8 +17,8 @@
     --Toggle-Light-Mode: hsl(230, 22%, 74%);
     /*### Neutral
     #### Dark Theme*/
-    --Very-Dark-Blue /*(BG)*/: hsl(23;0, 17%, 14%);
-    --Very-Dark-Blue /*(Top BG Pattern)*/: hsl(232, 19%, 15%);
+    --Very-Dark-Blue-1 /*(BG)*/: hsl(230, 17%, 14%);
+    --Very-Dark-Blue-2 /*(Top BG Pattern)*/: hsl(232, 19%, 15%);
     --Dark-Desaturated-Blue /*(Card BG)*/: hsl(228, 28%, 20%);
     --Desaturated-Blue /*(Text)*/: hsl(228, 34%, 66%);
     --White /*(Text)*/: hsl(0, 0%, 100%);
@@ -32,22 +32,35 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    width: 100vw;
+    max-width: 100vw;
     height: 100vh;
+    background-color: var(--White);
+}
+
+body.dark {
+    background-color: var(--Very-Dark-Blue-1);
 }
 
 .header {
     width: 100%;
     height: 30%;
-    padding: 2rem 7rem;
+    padding: 1.5rem 7rem;
     background-color: var(--Very-Pale-Blue);
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
 }
 
-.header .dashboard-total-followers  h1{
+.header.dark {
+    background-color: var(--Very-Dark-Blue-2);
+}
+
+.header .dashboard-total-followers  h1 {
     color: var(--Very-Dark-Blue);
+}
+
+.header .dashboard-total-followers  h1.dark {
+    color: var(--White);
 }
 
 .header .dashboard-total-followers  p {
@@ -59,6 +72,7 @@ body {
 .header .dark-mode {
     display: flex;
     align-items: center;
+    margin-top: .5rem
 }
 
 .header .dark-mode p {
@@ -76,6 +90,10 @@ body {
     position: relative;
 }
 
+.header .switch.dark {
+    background: var(--Toggle-Dark-Mode);
+}
+
 .header .switch input {
     width: 0;
     height: 0;
@@ -89,17 +107,41 @@ body {
     border-radius: 50%;
     background-color: var(--White);
     top: 50%;
-    right: .2rem;
+    left: .2rem;
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
+    -webkit-transition: .3s;
+    transition: all .3s ease;
 }
+
+.header .switch .slider.dark {
+    background-color: var(--Very-Dark-Blue-1);
+}
+
+.header .switch input:checked + .slider {
+    -webkit-transform: translate(1.4rem, -50%);
+    transform: translate(1.4rem, -50%);
+}
+
 
 .container {
     width: 100%;
-    padding: 2rem 7rem;
-    margin-top: -6.5rem;
+    padding: 1.5rem 7rem;
     display: flex;
     flex-direction: column;
+    background-color: var(--White);
+}
+
+.container.dark {
+    background-color: var(--Very-Dark-Blue-1);
+}
+
+.container h2 {
+    margin-bottom: 1rem;
+}
+
+.container h2.dark {
+    color: var(--White);
 }
 
 .container .total-overview {
@@ -107,13 +149,47 @@ body {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: auto;
     gap: 0 1.5rem;
+    margin-bottom: 2rem;
 }
 
-.container .total-overview .total{
+.container .total-overview .total {
     padding: 1.5rem 0;
+    margin-top: -6.5rem;
     text-align: center;
     background-color: var(--Light-Grayish-Blue);
-    border-radius: .3rem
+    border-top-left-radius: .3rem .2rem;
+    border-top-left-radius: .3rem .2rem;
+    border-top-right-radius: .3rem .2rem;
+    border-bottom-right-radius: .3rem;
+    border-bottom-left-radius: .3rem;
+}
+
+.container .total-overview .total.dark {
+    background-color: var(--Dark-Desaturated-Blue);
+}
+
+.container .total-overview .facebook {
+    border-top: .2rem solid var(--Facebook);
+}
+
+.container .total-overview .twitter {
+    border-top: .2rem solid var(--Twitter);
+}
+
+.container .total-overview .instagram {
+    background: linear-gradient(var(--Light-Grayish-Blue), var(--Light-Grayish-Blue)) padding-box,
+                var(--Instagram) border-box;
+    border-top: .2rem solid;
+    border-color: transparent;
+}
+
+.container .total-overview .instagram.dark {
+    background: linear-gradient(var(--Dark-Desaturated-Blue), var(--Dark-Desaturated-Blue)) padding-box,
+                var(--Instagram) border-box;
+}
+
+.container .total-overview .youtube {
+    border-top: .2rem solid var(--YouTube);
 }
 
 .container .total-overview .total .name {
@@ -126,11 +202,16 @@ body {
 .container .total-overview .total .name p {
     margin-left: .5rem;
     font-size: 0.875rem;
+    color: var(--Dark-Grayish-Blue);
 }
 
 .container .total-overview .total h3 {
     font-size: 3.5rem;
     color: var(--Very-Dark-Blue);
+}
+
+.container .total-overview .total h3.dark {
+    color: var(--White);
 }
 
 .container .total-overview .total > p {
@@ -176,8 +257,12 @@ body {
     background-color: var(--Light-Grayish-Blue);
     display: flex;
     justify-content: space-between;
+    border-radius: .3rem;
 }
 
+.container .today-overview .today.dark {
+    background-color: var(--Dark-Desaturated-Blue);
+}
 
 .container .today-overview .today > div:first-child {
     display: flex;
@@ -196,6 +281,11 @@ body {
     height: fit-content;
     font-size: 2rem;
     font-weight: 700;
+    color: var(--Very-Dark-Blue);
+}
+
+.container .today-overview .today > div:first-child span.dark {
+    color: var(--White);
 }
 
 .container .today-overview .today > div:last-child {
@@ -225,4 +315,140 @@ body {
 
 .container .today-overview .today > div:last-child > .negatif p{
     color: var(--Bright-Red);
+}
+
+@media(hover: hover) {
+    .header .switch:hover {
+        cursor: pointer;
+        background: var(--Toggle-Dark-Mode);
+    }
+
+    .container .total-overview .total:hover {
+        cursor: pointer;
+        background-color: rgba(211, 211, 211);
+    }
+
+    .container .total-overview .instagram:hover {
+        background: linear-gradient(rgb(211, 211, 211), rgb(211, 211, 211)) padding-box,
+                var(--Instagram) border-box;
+    }
+
+    .container .total-overview .instagram.dark:hover {
+        background: linear-gradient(rgb(61, 69, 109), rgb(61, 69, 109)) padding-box,
+                var(--Instagram) border-box;
+    }
+
+    .container .total-overview .total.dark:hover {
+        cursor: pointer;
+        background-color: rgb(61, 69, 109);
+    }
+
+    .container .today-overview .today:hover {
+        cursor: pointer;
+        background-color: rgba(211, 211, 211, .5);
+    }
+
+    .container .today-overview .today.dark:hover {
+        cursor: pointer;
+        background-color: rgba(84, 93, 133, 0.5);
+    }
+}
+
+@media(max-width: 975px) {
+
+    .container .total-overview {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, auto);
+        gap: 1.3rem 1.5rem;
+    }
+
+    .container .total-overview .instagram {
+        margin-top: 0rem;
+    }
+
+    .container .total-overview .youtube {
+        margin-top: 0rem;
+    }
+
+    .container .today-overview {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(4, auto);
+    }
+}
+
+@media(max-width: 775px) {
+
+    body {
+        height: auto;
+    }
+
+    .header {
+        padding-bottom: 5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        border-radius: 0 0 2rem 2rem;
+    }
+
+    .header .dark-mode {
+        width: 100%;
+        margin-top: 1rem;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .header .dashboard-total-followers {
+        width: 100%;
+        padding-bottom: 1.5rem;
+        border-bottom: .2rem solid var(--Dark-Desaturated-Blue);
+    }
+
+    .container .total-overview {
+        margin-top: -4rem;
+    }
+
+    .container .total-overview .facebook {
+        margin: 0rem;
+    }
+
+    .container .total-overview .twitter {
+        margin: 0rem;
+    }
+}
+
+@media(max-width: 650px) {
+
+    .header {
+        padding: 1.5rem 3rem 5rem;
+    }
+
+    .header .dashboard-total-followers  h1 {
+        font-size: 1.5rem;
+    }
+
+    .container {
+        width: 100%;
+        padding: 1.5rem 3rem;
+    }
+
+    .container .total-overview {
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(4, auto);
+    }
+
+    .container .today-overview {
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(8, auto);
+    }
+}
+
+@media(max-width: 475px) {
+    .header {
+        padding: 1.5rem 1rem 5rem;
+    }
+
+    .container {
+        width: 100%;
+        padding: 1.5rem 1rem;
+    }
 }
